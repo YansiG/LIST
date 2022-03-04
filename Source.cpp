@@ -8,6 +8,8 @@ public:
 	list();
 	~list();
 	void push_back(T data);
+	int GetSize() { return size; }
+	T& operator [](const int index);
 private:
 	template<typename T>
 	class node
@@ -58,6 +60,19 @@ void list<T>::push_back(T data)
 		temp->ptr_next = new node<T>(data);
 	}
 	size++;
+}
+
+template <typename T>
+T& list<T>::operator[](const int index)
+{
+	int count = 0;
+	node<t>* temp = head;
+	while (count < index)//собственная реализация
+	{
+		temp = temp->ptr_next;
+		count++;
+	}
+	return temp->value;
 }
 
 int main()
