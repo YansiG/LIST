@@ -1,5 +1,7 @@
 #include <iostream>
-#include<string>
+#include <string>
+#include <ctime>
+
 using namespace std;
 
 template<typename T>
@@ -31,7 +33,6 @@ private:
 	node<T> *head;
 	int size;
 };
-
 template<typename T>
 list<T>::list()
 {
@@ -43,7 +44,6 @@ list<T>::~list()
 {
 
 }
-
 template<typename T>
 void list<T>::push_back(T data)
 {
@@ -62,7 +62,6 @@ void list<T>::push_back(T data)
 	}
 	size++;
 }
-
 template <typename T>
 T& list<T>::operator[](const int index)
 {
@@ -88,8 +87,71 @@ T& list<T>::operator[](const int index)
 }
 
 
+template<typename T>
+class listcycle
+{
+public:
+	listcycle()
+	{
+		size = 0;
+		head = nullptr;
+	}
+	~listcycle();
+	void push_back(T data)
+	{
+		if (head == nullptr)
+		{
+			head = new nodecycle<T>(data);
+		}
+		else
+		{
+			nodecycle<T>* temp = this->head;
+			while (temp->ptr_next != nullptr)
+			{
+				temp = temp->ptr_next;
+			}
+			temp->ptr_next = new nodecycle<T>(data);
+		}
+		size++;
+	}
+	int GetSize() { return size; }
+	T& operator [](const int index)
+	{
+		if (head == nullptr)
+		{
+			head = new node<T>(data);
+		}
+		else
+		{
+			nodecycle<T>* temp = this->head;
+			while (temp->ptr_next != nullptr)
+			{
+				temp = temp->ptr_next;
+			}
+			temp->ptr_next = new node<T>(data);
+		}
+		size++;
+	}
+private:
+	template<typename T>
+	class nodecycle
+	{
+	public:
+		nodecycle(T value, node* ptr = nullptr)
+		{
+			this->value = value;
+			this->ptr_next = ptr;
+		}
+		~nodecycle()
+		{
 
-
+		}
+		T value;
+		nodecycle* ptr_next;
+	};
+	nodecycle<T>* head;
+	int size;
+};
 
 
 template<typename T>
@@ -260,27 +322,27 @@ private:
 	T* array = new T[size];
 };
 
-//class user
-//{
-//public:
-//	user(int pass, string email)
-//	{
-//		this->email = email;
-//		this->pass = pass;
-//	}
-//private:
-//	int pass;
-//	string email;
-//};
-
 int main()
 {
+	srand(time(0));
 	system("chcp 1251");
 	list<int>one;
-	one.push_back(5);
-	one.push_back(8);
-	one.push_back(1);
-	cout << one[1] << endl;
+	//one.push_back(5);
+	//one.push_back(8);
+	//one.push_back(1);
+	//cout << one[1] << endl;
+
+	int sc = 0;
+	cin >> sc;
+	for (int i = 0; i < sc; i++)
+	{
+		one.push_back(rand() % 10);
+	}
+	for (int i = 0; i < one.GetSize(); i++)
+	{
+		cout << one[i] << " ";
+	}
+	cout << endl;
 
 	/*queue<int> one;
 	one.push(5);
