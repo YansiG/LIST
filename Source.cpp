@@ -10,6 +10,8 @@ class list
 public:
 	list();
 	~list();
+	void pop_front();
+	void clear();
 	void push_back(T data);
 	int GetSize() { return size; }
 	T& operator [](const int index);
@@ -42,7 +44,7 @@ list<T>::list()
 template<typename T>
 list<T>::~list()
 {
-
+	clear();
 }
 template<typename T>
 void list<T>::push_back(T data)
@@ -85,73 +87,88 @@ T& list<T>::operator[](const int index)
 	}
 	return temp->value;
 }
-
-
 template<typename T>
-class listcycle
+void list<T>::pop_front()
 {
-public:
-	listcycle()
+	node<T>* temp = head;
+	head = head->ptr_next;
+	delete temp;
+	size--;
+}
+template<typename T>
+void list<T>::clear()
+{
+	while (size)
 	{
-		size = 0;
-		head = nullptr;
+		pop_front();
 	}
-	~listcycle();
-	void push_back(T data)
-	{
-		if (head == nullptr)
-		{
-			head = new nodecycle<T>(data);
-		}
-		else
-		{
-			nodecycle<T>* temp = this->head;
-			while (temp->ptr_next != nullptr)
-			{
-				temp = temp->ptr_next;
-			}
-			temp->ptr_next = new nodecycle<T>(data);
-		}
-		size++;
-	}
-	int GetSize() { return size; }
-	T& operator [](const int index)
-	{
-		if (head == nullptr)
-		{
-			head = new node<T>(data);
-		}
-		else
-		{
-			nodecycle<T>* temp = this->head;
-			while (temp->ptr_next != nullptr)
-			{
-				temp = temp->ptr_next;
-			}
-			temp->ptr_next = new node<T>(data);
-		}
-		size++;
-	}
-private:
-	template<typename T>
-	class nodecycle
-	{
-	public:
-		nodecycle(T value, node* ptr = nullptr)
-		{
-			this->value = value;
-			this->ptr_next = ptr;
-		}
-		~nodecycle()
-		{
+}
 
-		}
-		T value;
-		nodecycle* ptr_next;
-	};
-	nodecycle<T>* head;
-	int size;
-};
+//template<typename T>
+//class listcycle
+//{
+//public:
+//	listcycle()
+//	{
+//		size = 0;
+//		head = nullptr;
+//	}
+//	~listcycle();
+//	void push_back(T data)
+//	{
+//		if (head == nullptr)
+//		{
+//			head = new nodecycle<T>(data);
+//		}
+//		else
+//		{
+//			nodecycle<T>* temp = this->head;
+//			while (temp->ptr_next != nullptr)
+//			{
+//				temp = temp->ptr_next;
+//			}
+//			temp->ptr_next = new nodecycle<T>(data);
+//		}
+//		size++;
+//	}
+//	int GetSize() { return size; }
+//	T& operator [](const int index)
+//	{
+//		if (head == nullptr)
+//		{
+//			head = new node<T>(data);
+//		}
+//		else
+//		{
+//			nodecycle<T>* temp = this->head;
+//			while (temp->ptr_next != nullptr)
+//			{
+//				temp = temp->ptr_next;
+//			}
+//			temp->ptr_next = new node<T>(data);
+//		}
+//		size++;
+//	}
+//private:
+//	template<typename T>
+//	class nodecycle
+//	{
+//	public:
+//		nodecycle(T value, node* ptr = nullptr)
+//		{
+//			this->value = value;
+//			this->ptr_next = ptr;
+//		}
+//		~nodecycle()
+//		{
+//
+//		}
+//		T value;
+//		nodecycle* ptr_next;
+//	};
+//	nodecycle<T>* head;
+//	int size;
+//};
 
 
 template<typename T>
@@ -343,6 +360,7 @@ int main()
 		cout << one[i] << " ";
 	}
 	cout << endl;
+
 
 	/*queue<int> one;
 	one.push(5);
