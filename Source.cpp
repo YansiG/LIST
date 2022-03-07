@@ -14,6 +14,8 @@ public:
 	void clear();
 	void push_back(T data);
 	int GetSize() { return size; }
+	void push_front(T value);
+	
 	T& operator [](const int index);
 private:
 	template<typename T>
@@ -64,6 +66,15 @@ void list<T>::push_back(T data)
 	}
 	size++;
 }
+template<typename T>
+void list<T>::push_front(T value)
+{
+	head = new node<T>(value, head);//!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	/*node<T>* temp(value);
+	temp->ptr_next = head;
+	head = temp;*/
+	size++;
+}
 template <typename T>
 T& list<T>::operator[](const int index)
 {
@@ -104,71 +115,53 @@ void list<T>::clear()
 	}
 }
 
-//template<typename T>
-//class listcycle
-//{
-//public:
-//	listcycle()
-//	{
-//		size = 0;
-//		head = nullptr;
-//	}
-//	~listcycle();
-//	void push_back(T data)
-//	{
-//		if (head == nullptr)
-//		{
-//			head = new nodecycle<T>(data);
-//		}
-//		else
-//		{
-//			nodecycle<T>* temp = this->head;
-//			while (temp->ptr_next != nullptr)
-//			{
-//				temp = temp->ptr_next;
-//			}
-//			temp->ptr_next = new nodecycle<T>(data);
-//		}
-//		size++;
-//	}
-//	int GetSize() { return size; }
-//	T& operator [](const int index)
-//	{
-//		if (head == nullptr)
-//		{
-//			head = new node<T>(data);
-//		}
-//		else
-//		{
-//			nodecycle<T>* temp = this->head;
-//			while (temp->ptr_next != nullptr)
-//			{
-//				temp = temp->ptr_next;
-//			}
-//			temp->ptr_next = new node<T>(data);
-//		}
-//		size++;
-//	}
-//private:
-//	template<typename T>
-//	class nodecycle
-//	{
-//	public:
-//		nodecycle(T value, node* ptr = nullptr)
-//		{
-//			this->value = value;
-//			this->ptr_next = ptr;
-//		}
-//		~nodecycle()
-//		{
-//
-//		}
-//		T value;
-//		nodecycle* ptr_next;
-//	};
-//	nodecycle<T>* head;
-//	int size;
-//};
+
+template<typename T>
+class binarytree
+{
+public:
+	binarytree(T Data)
+	{
+		head = new node<T>()
+		head = nullptr;
+		
+	}
+	void push(T data)
+	{
+
+	}
+private:
+	template<typename T>
+	class Data
+	{
+	public:
+		Data(string name, int count, double price, string date)
+		{
+			this->count = count;
+			this->date = date;
+			this->name = name;
+			this->price = price;
+		}
+		string name;
+		int count;
+		double price;
+		string date;
+	};
+	template<typename T>
+	class node
+	{
+	public:
+		node(node* ptrRight = nullptr, node* ptrLeft = nullptr)
+		{
+			right = ptrRight;
+			left = ptrLeft;
+		}
+		node<T>* right;
+		node<T>* left;
+		node<T>* center;
+	};
+	node<T>* head;
+};
 
 
 template<typename T>
