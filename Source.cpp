@@ -12,11 +12,11 @@ public:
 	~list();
 	void pop_front();
 	void clear();
-	void push_back(T data);
+	void push_back(T value);
 	int GetSize() { return size; }
 	void push_front(T value);
-	
 	T& operator [](const int index);
+	void insert(T value, int index);
 private:
 	template<typename T>
 	class node
@@ -49,11 +49,11 @@ list<T>::~list()
 	clear();
 }
 template<typename T>
-void list<T>::push_back(T data)
+void list<T>::push_back(T value)
 {
 	if (head == nullptr)
 	{
-		head = new node<T>(data);
+		head = new node<T>(value);
 	}
 	else
 	{
@@ -62,7 +62,7 @@ void list<T>::push_back(T data)
 		{
 			temp = temp->ptr_next;
 		}
-		temp->ptr_next = new node<T>(data);
+		temp->ptr_next = new node<T>(value);
 	}
 	size++;
 }
@@ -114,6 +114,152 @@ void list<T>::clear()
 		pop_front();
 	}
 }
+template<typename T>
+void list<T>::insert(T value, int index)
+{
+	if (index == 0)
+	{
+		push_front(value);
+	}
+	else
+	{
+		node<T>* temp = head;
+		for (int i = 0; i < index - 1; i++)
+		{
+			temp = temp->ptr_next;
+		}
+		/*node<T>* elem = new node(value, temp->ptr_next);
+		temp->ptr_next = elem;*/
+		temp->ptr_next = new node<T>(value, temp->ptr_next);
+		size++;
+	}
+}
+
+
+
+
+
+//template<typename T>
+//class listcycle
+//{
+//public:
+//	listcycle()
+//	{
+//		size = 0;
+//		head = nullptr;
+//	}
+//	~listcycle()
+//	{
+//		clear();
+//	}
+//	void pop_front()
+//	{
+//		node<T>* temp = head;
+//		head = head->ptr_next;
+//		delete temp;
+//		size--;
+//	}
+//	void clear()
+//	{
+//		while (size)
+//		{
+//			pop_front();
+//		}
+//	}
+//	void push_back(T value)
+//	{
+//		if (head == nullptr)
+//		{
+//			head = new node<T>(value);
+//		}
+//		else
+//		{
+//			node<T>* temp = this->head;
+//			while (temp->ptr_next != head)
+//			{
+//				temp = temp->ptr_next;
+//			}
+//			temp->ptr_next = new node<T>(value);
+//		}
+//		size++;
+//	}
+//	int GetSize() { return size; }
+//	void push_front(T value)
+//	{
+//		head = new node<T>(value, head);
+//		size++;
+//	}
+//	T& operator [](const int index)
+//	{
+//		int count = 0;
+//		node<T>* temp = head;
+//		try
+//		{
+//			if (index > size - 1)
+//			{
+//				throw exception("Индекс не может быть больше размера стека.");
+//			}
+//			while (count < index)//собственная реализация
+//			{
+//				temp = temp->ptr_next;
+//				count++;
+//			}
+//		}
+//		catch (exception ex)
+//		{
+//			cout << "Ошибка. " << ex.what() << endl;
+//		}
+//		return temp->value;
+//	}
+//	void ShowInfo()
+//	{
+//		node<int>* temp = head;
+//		for (int i = 0; i < size; i++)
+//		{
+//			cout << temp->value << endl;
+//			temp = temp->ptr_next;
+//		}
+//	}
+//	void insert(T value, int index)
+//	{
+//		if (index == 0)
+//		{
+//			push_front(value);
+//		}
+//		else
+//		{
+//			node<T>* temp = head;
+//			for (int i = 0; i < index - 1; i++)
+//			{
+//				temp = temp->ptr_next;
+//			}
+//			/*node<T>* elem = new node(value, temp->ptr_next);
+//			temp->ptr_next = elem;*/
+//			temp->ptr_next = new node<T>(value, temp->ptr_next);
+//			size++;
+//		}
+//	}
+//private:
+//	template<typename T>
+//	class node
+//	{
+//	public:
+//		node(T value, node* ptr = head)
+//		{
+//			this->value = value;
+//			this->ptr_next = ptr;
+//		}
+//		~node(){}
+//		T value;
+//		node* ptr_next;
+//	};
+//	static node<T>* head;
+//	int size;
+//};
+
+
+
+
 
 
 template<typename T>
@@ -122,8 +268,8 @@ class binarytree
 public:
 	binarytree(T Data)
 	{
-		head = new node<T>()
-		head = nullptr;
+		head = new node<T>();
+		//head = nullptr;
 		
 	}
 	void push(T data)
@@ -336,13 +482,13 @@ int main()
 {
 	srand(time(0));
 	system("chcp 1251");
-	list<int>one;
+	//list<int>one;
 	//one.push_back(5);
 	//one.push_back(8);
 	//one.push_back(1);
 	//cout << one[1] << endl;
 
-	int sc = 0;
+	/*int sc = 0;
 	cin >> sc;
 	for (int i = 0; i < sc; i++)
 	{
@@ -352,7 +498,7 @@ int main()
 	{
 		cout << one[i] << " ";
 	}
-	cout << endl;
+	cout << endl;*/
 
 
 	/*queue<int> one;
@@ -380,4 +526,5 @@ int main()
 	two.change(1, 228);
 	cout << "==================" << endl;
 	two.Show(1);*/
+
 }
