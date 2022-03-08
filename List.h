@@ -1,6 +1,8 @@
 #pragma once
+#include<iostream>
+#include<string>
 
-#pragma once
+using namespace std;
 
 template<typename T>
 class list
