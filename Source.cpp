@@ -17,6 +17,8 @@ public:
 	void push_front(T value);
 	T& operator [](const int index);
 	void insert(T value, int index);
+	void removeAt(int index);
+	void pop_back();
 private:
 	template<typename T>
 	class node
@@ -134,130 +136,31 @@ void list<T>::insert(T value, int index)
 		size++;
 	}
 }
-
-
-
-
-
-//template<typename T>
-//class listcycle
-//{
-//public:
-//	listcycle()
-//	{
-//		size = 0;
-//		head = nullptr;
-//	}
-//	~listcycle()
-//	{
-//		clear();
-//	}
-//	void pop_front()
-//	{
-//		node<T>* temp = head;
-//		head = head->ptr_next;
-//		delete temp;
-//		size--;
-//	}
-//	void clear()
-//	{
-//		while (size)
-//		{
-//			pop_front();
-//		}
-//	}
-//	void push_back(T value)
-//	{
-//		if (head == nullptr)
-//		{
-//			head = new node<T>(value);
-//		}
-//		else
-//		{
-//			node<T>* temp = this->head;
-//			while (temp->ptr_next != head)
-//			{
-//				temp = temp->ptr_next;
-//			}
-//			temp->ptr_next = new node<T>(value);
-//		}
-//		size++;
-//	}
-//	int GetSize() { return size; }
-//	void push_front(T value)
-//	{
-//		head = new node<T>(value, head);
-//		size++;
-//	}
-//	T& operator [](const int index)
-//	{
-//		int count = 0;
-//		node<T>* temp = head;
-//		try
-//		{
-//			if (index > size - 1)
-//			{
-//				throw exception("Индекс не может быть больше размера стека.");
-//			}
-//			while (count < index)//собственная реализация
-//			{
-//				temp = temp->ptr_next;
-//				count++;
-//			}
-//		}
-//		catch (exception ex)
-//		{
-//			cout << "Ошибка. " << ex.what() << endl;
-//		}
-//		return temp->value;
-//	}
-//	void ShowInfo()
-//	{
-//		node<int>* temp = head;
-//		for (int i = 0; i < size; i++)
-//		{
-//			cout << temp->value << endl;
-//			temp = temp->ptr_next;
-//		}
-//	}
-//	void insert(T value, int index)
-//	{
-//		if (index == 0)
-//		{
-//			push_front(value);
-//		}
-//		else
-//		{
-//			node<T>* temp = head;
-//			for (int i = 0; i < index - 1; i++)
-//			{
-//				temp = temp->ptr_next;
-//			}
-//			/*node<T>* elem = new node(value, temp->ptr_next);
-//			temp->ptr_next = elem;*/
-//			temp->ptr_next = new node<T>(value, temp->ptr_next);
-//			size++;
-//		}
-//	}
-//private:
-//	template<typename T>
-//	class node
-//	{
-//	public:
-//		node(T value, node* ptr = head)
-//		{
-//			this->value = value;
-//			this->ptr_next = ptr;
-//		}
-//		~node(){}
-//		T value;
-//		node* ptr_next;
-//	};
-//	static node<T>* head;
-//	int size;
-//};
-
-
+template<typename T>
+void list<T>::removeAt(int index)
+{
+	if (index == 0)
+	{
+		pop_front();
+	}
+	else
+	{
+		node<T>* temp_previe = head;
+		for (int i = 0; i < index - 1; i++)
+		{
+			temp_previe = temp_previe->ptr_next;
+		}
+		node<T>* temp_todelete = temp_previe->ptr_next;
+		temp_previe->ptr_next = temp_todelete->ptr_next;
+		delete temp_todelete;
+	}
+	size--;
+}
+template<typename T>
+void list<T>::pop_back()
+{
+	removeAt(size - 1);
+}
 
 
 
@@ -482,49 +385,5 @@ int main()
 {
 	srand(time(0));
 	system("chcp 1251");
-	//list<int>one;
-	//one.push_back(5);
-	//one.push_back(8);
-	//one.push_back(1);
-	//cout << one[1] << endl;
-
-	/*int sc = 0;
-	cin >> sc;
-	for (int i = 0; i < sc; i++)
-	{
-		one.push_back(rand() % 10);
-	}
-	for (int i = 0; i < one.GetSize(); i++)
-	{
-		cout << one[i] << " ";
-	}
-	cout << endl;*/
-
-
-	/*queue<int> one;
-	one.push(5);
-	one.push(2);
-	one.push(9);
-	one.showArray();
-	one.pop();
-	cout << "==================" << endl;
-	one.showArray();
-	one.change(1, 0);
-	cout << "==================" << endl;
-	one.Show(1);
 	
-	cout << "\n==================\n" << endl;
-
-	steck<int> two;
-	two.push(2);
-	two.push(7);
-	two.push(8);
-	two.showArray();
-	two.pop();
-	cout << "==================" << endl;
-	two.showArray();
-	two.change(1, 228);
-	cout << "==================" << endl;
-	two.Show(1);*/
-
 }
