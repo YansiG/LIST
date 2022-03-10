@@ -15,10 +15,9 @@ int main()
 	system("chcp 1251");
 	binarytree<int> one;
 	one.Push(10);
-	one.Push(4);
 	one.Push(12);
-	one.show_info(4);
-	one.show_info(5);
-	one.change(4);
-	one.removeAt(12);
+	one.Push(8);
+	one.Push(9);
+	one.show_info(10);
+	//one.removeAt(10);
 }
