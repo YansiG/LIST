@@ -62,7 +62,7 @@ public:
 		else
 		{
 			node<T>* temp = root;
-			while (root->left != nullptr && root->right != nullptr)
+			while (temp->left != nullptr && temp->right != nullptr)
 			{
 				if (value > temp->value)
 				{
@@ -75,11 +75,11 @@ public:
 			}
 			if (value > temp->value)
 			{
-				root->right = new node<T>(value);
+				temp->right = new node<T>(value);
 			}
 			else
 			{
-				root->left = new node<T>(value);
+				temp->left = new node<T>(value);
 			}
 			size++;
 		}
